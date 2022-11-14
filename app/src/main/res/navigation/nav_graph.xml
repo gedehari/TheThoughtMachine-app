@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/thoughtListFragment"
         android:name="com.gedehari.thethoughtmachine.ThoughtListFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_thought_list" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_thought_list">
         <action
             android:id="@+id/action_thoughtListFragment_to_newThoughtFragment"
             app:destination="@id/newThoughtFragment" />
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/newThoughtFragment"
         android:name="com.gedehari.thethoughtmachine.NewThoughtFragment"
-        android:label="fragment_new_thought"
+        android:label="@string/new_thought_title"
         tools:layout="@layout/fragment_new_thought" />
 </navigation>
