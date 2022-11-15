@@ -16,6 +16,6 @@ interface ThoughtDao {
     @Query("SELECT * FROM thoughts WHERE id = :id")
     fun getThought(id: Int): Flow<Thought>
 
-    @Query("SELECT * FROM thoughts ORDER BY id ASC")
+    @Query("SELECT * FROM thoughts ORDER BY id DESC")
     fun getThoughts(): Flow<List<Thought>>
 }

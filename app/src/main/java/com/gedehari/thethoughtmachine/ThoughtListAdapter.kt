@@ -22,7 +22,7 @@ class ThoughtListAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ThoughtListViewHolder {
-        return ThoughtListViewHolder(ThoughtListItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return ThoughtListViewHolder(ThoughtListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ThoughtListViewHolder, position: Int) {
@@ -36,7 +36,7 @@ class ThoughtListAdapter :
             }
 
             override fun areItemsTheSame(oldItem: Thought, newItem: Thought): Boolean {
-                return oldItem === newItem
+                return oldItem.id == newItem.id
             }
         }
     }

@@ -20,5 +20,5 @@ data class Thought (
     val message: String,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: Date? = null
+    val createdAt: Long = 0
 )
