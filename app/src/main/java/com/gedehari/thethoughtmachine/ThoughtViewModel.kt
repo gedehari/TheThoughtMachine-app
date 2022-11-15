@@ -14,7 +14,7 @@ class ThoughtViewModel(private val thoughtDao: ThoughtDao): ViewModel() {
         }
     }
 
-    fun getNewThoughtEntry(title: String, author: String?, message: String): Thought {
+    fun getNewThoughtEntry(title: String, author: String, message: String): Thought {
         return Thought(
             title = title,
             author = author,
@@ -22,7 +22,7 @@ class ThoughtViewModel(private val thoughtDao: ThoughtDao): ViewModel() {
         )
     }
 
-    fun addNewThought(title: String, author: String?, message: String) {
+    fun addNewThought(title: String, author: String, message: String) {
         val newThought = getNewThoughtEntry(title, author, message)
         insertThought(newThought)
     }

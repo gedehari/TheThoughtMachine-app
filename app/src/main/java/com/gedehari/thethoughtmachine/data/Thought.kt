@@ -14,7 +14,7 @@ data class Thought (
     val title: String,
 
     @ColumnInfo
-    val author: String?,
+    val author: String,
 
     @ColumnInfo
     val message: String,

@@ -15,7 +15,10 @@ class ThoughtListAdapter :
         fun bind(thought: Thought) {
             binding.apply {
                 thoughtTitle.text = thought.title
-                thoughtAuthor.text = thought.author
+                if (thought.author.isEmpty())
+                    thoughtAuthor.text = "Anonymous"
+                else
+                    thoughtAuthor.text = thought.author
                 thoughtMessage.text = thought.message
             }
         }
@@ -32,7 +35,8 @@ class ThoughtListAdapter :
     companion object {
         private val DiffCallback = object : ItemCallback<Thought>() {
             override fun areContentsTheSame(oldItem: Thought, newItem: Thought): Boolean {
-                return oldItem.id == newItem.id
+                return  oldItem.title   == newItem.title    ||
+                        oldItem.message == newItem.message
             }
 
             override fun areItemsTheSame(oldItem: Thought, newItem: Thought): Boolean {
