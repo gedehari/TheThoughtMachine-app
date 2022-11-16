@@ -14,16 +14,18 @@ class ThoughtViewModel(private val thoughtDao: ThoughtDao): ViewModel() {
         }
     }
 
-    fun getNewThoughtEntry(title: String, author: String, message: String): Thought {
+    fun getNewThoughtEntry(id: Int, title: String, author: String, message: String, createdAt: Long): Thought {
         return Thought(
+            id = id,
             title = title,
             author = author,
-            message = message
+            message = message,
+            createdAt = createdAt
         )
     }
 
-    fun addNewThought(title: String, author: String, message: String) {
-        val newThought = getNewThoughtEntry(title, author, message)
+    fun addNewThought(id: Int, title: String, author: String, message: String, createdAt: Long) {
+        val newThought = getNewThoughtEntry(id, title, author, message, createdAt)
         insertThought(newThought)
     }
 }

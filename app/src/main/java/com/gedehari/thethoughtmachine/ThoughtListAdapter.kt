@@ -36,6 +36,7 @@ class ThoughtListAdapter :
         private val DiffCallback = object : ItemCallback<Thought>() {
             override fun areContentsTheSame(oldItem: Thought, newItem: Thought): Boolean {
                 return  oldItem.title   == newItem.title    ||
+                        oldItem.author  == newItem.author   ||
                         oldItem.message == newItem.message
             }
 

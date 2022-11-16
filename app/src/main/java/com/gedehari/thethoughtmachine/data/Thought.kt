@@ -3,12 +3,11 @@ package com.gedehari.thethoughtmachine.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
 
 @Entity(tableName = "thoughts")
 data class Thought (
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int,
 
     @ColumnInfo
     val title: String,
@@ -20,5 +19,5 @@ data class Thought (
     val message: String,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: Long = 0
+    val createdAt: Long
 )
