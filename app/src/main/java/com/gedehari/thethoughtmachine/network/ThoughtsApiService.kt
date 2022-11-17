@@ -23,7 +23,11 @@ private val retrofit = Retrofit.Builder()
 interface ThoughtsApiService {
     @GET("thoughts")
     suspend fun getThoughts(
-        @Query("page") page: Int = 0
+        @Query("from")
+        from: Int = 0,
+
+        @Query("limit")
+        limit: Int = 0 // server default is 10
     ): List<Thought>
 }
 

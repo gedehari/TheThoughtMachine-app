@@ -1,7 +1,6 @@
 package com.gedehari.thethoughtmachine
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gedehari.thethoughtmachine.databinding.FragmentThoughtListBinding
-import com.gedehari.thethoughtmachine.network.ThoughtsApi
-import jp.wasabeef.recyclerview.animators.FadeInAnimator
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ThoughtListFragment : Fragment() {
@@ -37,16 +35,12 @@ class ThoughtListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            val test = ThoughtsApi.retrofitService.getThoughts()
-            Log.i("TTM", test.toString())
-        }
+        binding.swipeRefresh.setOnRefreshListener { getLatestThoughts() }
 
         val adapter = ThoughtListAdapter()
-
         binding.thoughtList.layoutManager = LinearLayoutManager(this.context)
         binding.thoughtList.adapter = adapter
-        binding.thoughtList.itemAnimator = FadeInAnimator()
+        //binding.thoughtList.itemAnimator = FadeInAnimator()
         viewModel.allThoughts.observe(this.viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.errorText.text = "No Thoughts..."
@@ -63,6 +57,20 @@ class ThoughtListFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             val action = ThoughtListFragmentDirections.actionThoughtListFragmentToNewThoughtFragment()
             this.findNavController().navigate(action)
+        }
+
+        getLatestThoughts()
+    }
+
+    private fun getLatestThoughts() {
+        binding.swipeRefresh.isRefreshing = true
+
+        viewModel.getLatestThoughts {
+            binding.swipeRefresh.isRefreshing = false
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(100L)
+                binding.thoughtList.smoothScrollToPosition(0)
+            }
         }
     }
 }

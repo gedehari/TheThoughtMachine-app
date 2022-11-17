@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_thought_list">
         <action
             android:id="@+id/action_thoughtListFragment_to_newThoughtFragment"
-            app:destination="@id/newThoughtFragment" />
+            app:destination="@id/newThoughtFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/newThoughtFragment"
