@@ -23,6 +23,8 @@ class ThoughtListFragment : Fragment() {
     private var _binding: FragmentThoughtListBinding? = null
     private val binding get() = _binding!!
 
+    private var loadingIndicatorVisible = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +56,19 @@ class ThoughtListFragment : Fragment() {
             }
         }
 
+        binding.loadingIndicator.visibility = View.INVISIBLE
+
+        binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            val targetY = binding.loadingIndicator.y - v.measuredHeight
+            val visible = scrollY >= targetY
+            if (loadingIndicatorVisible != visible) {
+                if (visible)
+                    getPastThoughts()
+
+                loadingIndicatorVisible = visible
+            }
+        }
+
         binding.floatingActionButton.setOnClickListener {
             val action = ThoughtListFragmentDirections.actionThoughtListFragmentToNewThoughtFragment()
             this.findNavController().navigate(action)
@@ -71,6 +86,13 @@ class ThoughtListFragment : Fragment() {
                 delay(100L)
                 binding.thoughtList.smoothScrollToPosition(0)
             }
+        }
+    }
+
+    private fun getPastThoughts() {
+        binding.loadingIndicator.visibility = View.VISIBLE
+        viewModel.getPastThoughts {
+            binding.loadingIndicator.visibility = View.INVISIBLE
         }
     }
 }
